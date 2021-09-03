@@ -1,12 +1,7 @@
 <template>
-  <div class="entry" 
-    v-for="(content,index) in contents"
-    :key="index">
+  <div class="entry">
     <div class="bounds" >
         <div class="desc">
-            <!-- <div class="thumb">
-              <img :src="setCategoryImage(content.category)" alt="link to details">
-            </div> -->
             <catThumb :categoryTitle="content.category" />
             <div class="content">
                 <span class="title">{{content.title}}</span>
@@ -25,7 +20,6 @@
 </template>
     
 <script>
-
     import catThumb from './catThumb.vue'
 
     export default {
@@ -36,7 +30,7 @@
       }
     },
     props: {
-        contents: Array, 
+        content: Object, 
         dropDownItem: {
           type: Boolean,
           default: false
@@ -87,6 +81,5 @@ hr{
   background-color: #dedede;
   margin-left: 16px;
 }
-
 
 </style>

@@ -1,22 +1,31 @@
 <template>
-    <div class="catSelectionBar" >
-        <div class="desc">
-            <catThumb categoryTitle="overview" :hasLightColor="false"/>
-            <div class="category-label">
-                <span class="title">Category Name</span>
-                <span class="items-counter">5 Items</span>
+    <div class="wrapper-cat-selection">
+        <div class="catSelectionBar" >
+            <div class="desc">
+                <catThumb categoryTitle="overview" :hasLightColor="false"/>
+                <div class="category-label">
+                    <span class="title">Category Name</span>
+                    <span class="items-counter">5 Items</span>
+                </div>
             </div>
+            <div class="wrapper-chevron" @click="toggleDropdown()" ref="chevron">
+                <img src="../assets/icons/ic_chevron_down.svg" class="dropdown" alt="dropdown">
+            </div>    
         </div>
-        <div class="wrapper-chevron" @click="toggleDropdown()" ref="chevron">
-            <img src="../assets/icons/ic_chevron_down.svg" class="dropdown" alt="dropdown">
+        <div class="dropdownItems" v-if="toggled">
+            <DropdownItem  
+            v-for="(category,index) in allCategories"
+            :key="index" 
+            :category="category"
+            />
         </div>
-        
     </div>
-    
 </template>
 
 <script>
     import catThumb from './catThumb.vue'
+    import Entry from './entry.vue'
+    import DropdownItem from './dropdownItem.vue'
 
     export default {
         name: 'catSelectionBar',
@@ -25,8 +34,13 @@
                 toggled: false
             }
         },
+        props : {
+            categories: Array
+        },
         components: {
-            catThumb
+            catThumb,
+            Entry,
+            DropdownItem
         },
         methods: {
             toggleDropdown(){
@@ -39,52 +53,56 @@
                     this.toggled = false
                 }
             }
-        }
+        },
+        inject: ['allCategories']
     
-        
     }
 </script>
 
 <style scoped>
-span{
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 19px;
-  color:white;
-}
-.catSelectionBar{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  border-bottom: .5px solid rgba(255,255,255,.16);
-}
-.desc{
+    .wrapper-cat-selection{
+        position: absolute;
+        width: 100%;
+        background: #2b2b2b;
+    }
+    span{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    color:white;
+    }
+    .catSelectionBar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border-bottom: .5px solid #444;
+    }
+    .desc{
+        display: flex;
+        align-items: center;
+    }
+    .category-label{
+    padding-left: 16px;
     display: flex;
-    align-items: center;
-}
-.category-label{
-  padding-left: 16px;
-  display: flex;
-  flex-direction: column;
-}
-span:nth-child(2){
-  color: #8d8d8d;
-}
-.wrapper-chevron{
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-.wrapper-chevron img{
-    display: block;
-    transform: rotate(0deg);
-    transform-origin: center;
-    transition: transform .5s;
-}
-
+    flex-direction: column;
+    }
+    span:nth-child(2){
+    color: #8d8d8d;
+    }
+    .wrapper-chevron{
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .wrapper-chevron img{
+        display: block;
+        transform: rotate(0deg);
+        transform-origin: center;
+        transition: transform .5s;
+    }
 
 </style>
