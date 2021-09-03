@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
 </script>
 
 <style scoped>
@@ -17,7 +18,7 @@
     justify-content: flex-end;
     align-items: center;
     padding: 16px;
-    border-top:1px solid #dedede;
+    border-top:.5px solid #dedede;
     background: white;
 }
 .primaryBar > *{

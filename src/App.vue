@@ -1,6 +1,6 @@
 <template>
   <div class="categories">
-
+  <CatSelectionBar/>
   </div>
   <div class="entries">
     <div class="wrapper_Entries">
@@ -15,12 +15,14 @@
 <script>
 import Entry from './components/entry.vue'
 import PrimaryBar from './components/primaryBar.vue'
+import CatSelectionBar from './components/catSelectionBar.vue'
 
 export default {
   name: 'App',
   components: {
     Entry,
-    PrimaryBar
+    PrimaryBar,
+    CatSelectionBar
   },
   data() {
     return {

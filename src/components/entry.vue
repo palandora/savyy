@@ -4,15 +4,16 @@
     :key="index">
     <div class="bounds" >
         <div class="desc">
-            <div class="thumb">
+            <!-- <div class="thumb">
               <img :src="setCategoryImage(content.category)" alt="link to details">
-            </div>
+            </div> -->
+            <catThumb :categoryTitle="content.category" />
             <div class="content">
                 <span class="title">{{content.title}}</span>
                 <span class="category">{{content.category}}</span>
             </div>
         </div>
-        <div class="details">
+        <div class="details" v-if="!dropDownItem">
             <span>{{content.amount}}</span>
             <img src="../assets/icons/ic_chevron_right.svg" alt="link to details">
         </div>
@@ -24,6 +25,9 @@
 </template>
     
 <script>
+
+    import catThumb from './catThumb.vue'
+
     export default {
     name: 'entry',
     data() {
@@ -33,16 +37,20 @@
     },
     props: {
         contents: Array, 
+        dropDownItem: {
+          type: Boolean,
+          default: false
+        }
     },
     components: {
-        
+        catThumb
     },
     methods: {
       setCategoryImage(catName){
         return require(`../assets/thumbs/img_${catName.toLowerCase()}.png`)
       }
     }
-}
+  }
 </script>
 
 <style scoped>
@@ -60,18 +68,6 @@ span{
 .desc{
     display: flex;
 }
-.thumb{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f0f0f0; 
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-}
-.thumb img{
-  width: 24px;
-}
 .content{
   padding-left: 16px;
   display: flex;
@@ -87,7 +83,7 @@ span:nth-child(2){
 }
 hr{
   border: 0;
-  height: 1px;
+  height: .5px;
   background-color: #dedede;
   margin-left: 16px;
 }
