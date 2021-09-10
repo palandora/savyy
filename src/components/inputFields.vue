@@ -5,11 +5,7 @@
             <input v-model="title" type="text" placeholder="Title" name="title" id="title">
             <hr>
         </div>
-        <div class="input-wrapper">
-            <input v-model="priority" type="text" placeholder="Priority" name="title" id="title" readonly>
-            <hr>
-            <Dropdown/>
-        </div>
+        <Dropdown v-on:priority-selected="updatePriority($event)" />
         <div class="input-wrapper">
             <input v-model="due_date" type="date" placeholder="12.02.2020" name="title" id="title">
         </div>
@@ -48,6 +44,9 @@ export default {
             this.title = ""
             this.due_date = ""
             this.priority = ""
+        },
+        updatePriority(label){
+            this.priority = label;
         }
     },
     components: {

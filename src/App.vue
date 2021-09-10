@@ -30,12 +30,7 @@ export default {
   },
   data() {
     return {
-      todos: [{
-        title: 'Finish coding project',
-        due_date: '12-02-21',
-        priority: 'prio_high',
-        done: false
-      }]
+      todos: []
     }
   },
   methods: {
