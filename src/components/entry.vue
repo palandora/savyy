@@ -2,16 +2,13 @@
   <div class="entry">
     <div class="bounds" >
         <div class="desc">
-            <catThumb :categoryTitle="content.category" />
+            <catThumb :thumbTitle="todo.priority" />
             <div class="content">
-                <span class="title">{{content.title}}</span>
-                <span class="category">{{content.category}}</span>
+                <span class="title">{{todo.title}}</span>
+                <span class="due">{{todo.due_date}}</span>
             </div>
         </div>
-        <div class="details" v-if="!dropDownItem">
-            <span>{{content.amount}}</span>
-            <img src="../assets/icons/ic_chevron_right.svg" alt="link to details">
-        </div>
+        <div class="checkbox" :class="[todo.done ? 'active' : '']" @click="toggleCheckbox(currentIndex)"></div>
     </div>
     <hr>
   </div>
@@ -26,22 +23,19 @@
     name: 'entry',
     data() {
       return {
-        imagePath: null
+        selectedIndex: 0
       }
     },
     props: {
-        content: Object, 
-        dropDownItem: {
-          type: Boolean,
-          default: false
-        }
+        todo: Object
     },
     components: {
         catThumb
     },
-    methods: {
-      setCategoryImage(catName){
-        return require(`../assets/thumbs/img_${catName.toLowerCase()}.png`)
+    methods:{
+      toggleCheckbox(currentIndex){
+        this.todo.done = true
+        this.$emit('todo-done', currentIndex)
       }
     }
   }
@@ -57,7 +51,7 @@ span{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 8px 16px 16px;
+  padding: 16px;
 }
 .desc{
     display: flex;
@@ -70,11 +64,19 @@ span{
 span:nth-child(2){
   color: #8d8d8d;
 }
-.details{
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+
+.checkbox{
+  width: 24px;
+  height: 24px;
+  background: url(../assets/icons/ic_checkbox_default.svg) no-repeat center;
+  cursor: pointer;
+  transition: background .16s;
 }
+
+.checkbox.active{
+  background: url(../assets/icons/ic_checkbox_active.svg) no-repeat center;
+}
+
 hr{
   border: 0;
   height: .5px;

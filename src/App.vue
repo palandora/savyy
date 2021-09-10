@@ -1,59 +1,52 @@
 <template>
-  <div class="categories">
-    <CatSelectionBar :categories="categories"/>
-    <catOverview/>
-    <div class="swiper">
-      <div class="swipe-indicator"></div>
-    </div>
-  </div>
-  <div class="entries">
+  <div class="container">
+    <AppHeader/>
+    <InputFields v-on:new-todo="pushToList($event)"/>
     <div class="wrapper_Entries">
+      <hr>
       <Entry 
-        v-for="(entry,index) in entries"
+        v-for="(todo,index) in todos"
         :key="index" 
-        :content="entry"
+        :todo="todo"
+        :currentIndex="index"
+        v-on:todo-done="removeFromList($event)"
       />
     </div>
-    <PrimaryBar class="primaryBar"/>
   </div>
   
 </template>
 
 <script>
+import AppHeader from './components/appHeader.vue'
+import InputFields from './components/inputFields.vue'
 import Entry from './components/entry.vue'
-import PrimaryBar from './components/primaryBar.vue'
-import CatSelectionBar from './components/catSelectionBar.vue'
-import catOverview from './components/catOverview.vue'
 
 export default {
   name: 'App',
   components: {
     Entry,
-    PrimaryBar,
-    CatSelectionBar,
-    catOverview
+    AppHeader,
+    InputFields
   },
   data() {
     return {
-      categories: [
-        'Food','Household','Income','Other',
-        'Overview','Shopping','Vacation','Work'
-      ],
-      entries: [{
-        title: 'Rent',
-        category: 'Household',
-        amount: '-200'
-      },
-      {
-        title: 'Flight to Amsterdam',
-        category: 'Vacation',
-        amount: '-200'
+      todos: [{
+        title: 'Finish coding project',
+        due_date: '12-02-21',
+        priority: 'prio_high',
+        done: false
       }]
     }
   },
-  provide(){
-    return {
-      allCategories: this.categories
+  methods: {
+    pushToList(newObject){
+      this.todos.push(newObject)
+    },
+    removeFromList(atIndex){
+      setTimeout(()=>{ 
+        this.todos.splice(atIndex, 1);
+      }, 1000)
+      
     }
   }
   
@@ -78,45 +71,28 @@ export default {
   background: black;
   height: 100vh;
   display: flex;
-}
-.categories{
-  position: relative;
-  height: 100vh;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  background: #2b2b2b;
-}
-
-.entries{
-  display: flex;
-  flex-direction: column;
-  background: white;
-  width: 50%;
-  min-height: 100%;
-}
-/* sticky footer */
-.entries .wrapper_Entries {
-  flex: 1 0 auto;
-}
-/* swipe indicator */ 
-.swiper{
-  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 32px;
-  border-top: .5px solid #444;
-}
-.swipe-indicator{
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.16);
-}
-.swipe-indicator.active{
-  background: white;
 }
 
+.container{
+  display: flex;
+  flex-direction: column;
+  background: white;
+  width: 72%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.wrapper_Entries{
+  background: #f8f8f8;
+}
+
+.wrapper_Entries hr{
+  border: 0;
+  height: 1px;
+  background-color: #efefef;
+}
 
 
 </style>

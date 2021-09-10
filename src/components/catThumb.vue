@@ -1,6 +1,6 @@
 <template>
-    <div class="thumb" :class="[hasLightColor ? 'light' : 'dark']">
-        <img :src="setCategoryImage(categoryTitle)" alt="category thumbnail">
+    <div class="thumb">
+        <img :src="setThumbImage(thumbTitle)" alt="category thumbnail">
     </div>
 </template>
 
@@ -8,21 +8,17 @@
 
 export default {
     name: 'catThumb',
-    // data() {
-    //     return {
-        
-    //     }
-    // },
     props: {
-        categoryTitle: String,
-        hasLightColor: {
-            type: Boolean,
-            default: true
-        } 
+        thumbTitle: String
     },
     methods: {
-      setCategoryImage(catName){
-        return require(`../assets/thumbs/img_${catName.toLowerCase()}.png`)
+      setThumbImage(name){
+        try{
+          return require(`../assets/priorities/${name.toLowerCase()}.png`)
+        }
+        catch(e){
+          return require(`../assets/thumbs/img_other.png`)
+        }
       }
     }
 }
@@ -36,13 +32,9 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 12px;
+  background-color: #f0f0f0;
 }
-.light{
-    background-color: #f0f0f0;
-}
-.dark{
-    background-color:#444
-}
+
 .thumb img{
   width: 24px;
 }
