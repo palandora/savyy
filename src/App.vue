@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <AppHeader/>
+    <AppHeader title="TodoWizard" subline="Getting things done faster"/>
     <InputFields v-on:new-todo="pushToList($event)"/>
     <div class="wrapper_Entries">
       <hr>

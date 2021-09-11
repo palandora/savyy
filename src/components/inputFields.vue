@@ -10,7 +10,7 @@
             <input v-model="due_date" type="date" placeholder="12.02.2020" name="title" id="title">
         </div>
     </form>
-    <PrimaryBar :addTodo="addTodo" :resetInputs="reset"/>
+    <PrimaryBar :addTodo="addTodo" :resetInputs="reset" :toggleError="toggleError"/>
 </div>
     
 </template>
@@ -24,8 +24,9 @@ export default {
     data() {
         return {
             title: "",
-            priority: "High",
-            due_date: ""
+            priority: "",
+            due_date: "",
+            toggleError: false
         }
     },
     methods:{
@@ -36,9 +37,13 @@ export default {
                 priority: this.priority,
                 done: false
             }
-            this.reset()
-            this.$emit('new-todo',newTodo)
-            console.log(newTodo)
+            if(!this.inputMissing(newTodo)){
+                this.reset()
+                this.$emit('new-todo',newTodo)
+                this.toggleError = false
+            }else{
+                this.toggleError = true
+            }
         },
         reset(){
             this.title = ""
@@ -47,6 +52,14 @@ export default {
         },
         updatePriority(label){
             this.priority = label;
+        },
+        inputMissing(obj){
+            for(var prop in obj) {
+                if(obj[prop] === ''){
+                    return true
+                }
+            }
+            return false
         }
     },
     components: {

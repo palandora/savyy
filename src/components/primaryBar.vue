@@ -4,22 +4,34 @@
         <div class="btn" @click="addTodo">
             <img src="../assets/icons/ic_add.svg" alt="btn new item">
         </div>
+        <error-message 
+        title="Oops something missing"
+        subline="Please enter all the information required"
+        :toggle="toggleError"
+        />
     </div>
 
 </template>
 
 <script>
+import ErrorMessage from './errorMessage.vue'
+
 export default {
     name: 'primary-bar',
     props: {
         addTodo: Function,
-        resetInputs : Function
+        resetInputs : Function,
+        toggleError: Boolean
     },
+    components:{
+        ErrorMessage
+    }
 }
 </script>
 
 <style scoped>
 .primary-bar{
+    position: relative;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -27,7 +39,7 @@ export default {
     border-top:.5px solid #efefef;
     background: white;
 }
-.primary-bar > *{
+.primary-bar > span + div{
     margin-left: 16px;
 }
 .btn{
@@ -46,5 +58,6 @@ span{
     font-weight: 600;
     color: #8d8d8d;
 }
+
 
 </style>

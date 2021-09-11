@@ -5,8 +5,8 @@
                 <img src="../assets/thumbs/img_other.png" alt="header image">
             </div>
             <div class="content">
-                <span class="title">TodoWizard</span>
-                <span class="subline">Getting things done faster</span>
+                <span class="title">{{title}}</span>
+                <span class="subline">{{subline}}</span>
             </div>
         </div>
     </div>
@@ -19,6 +19,10 @@
     name: 'appHeader',
     components: {
         catThumb
+    },
+    props:{
+        title: String,
+        subline: String
     }
   }
 </script>

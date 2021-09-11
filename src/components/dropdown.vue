@@ -85,6 +85,7 @@ export default {
     /* styles dropdown */
     .dropdown{
         position: absolute;
+        z-index: 4;
         left: 16px;
         right: 16px;
         border-radius: 0 0 8px 8px;
