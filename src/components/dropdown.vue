@@ -19,9 +19,10 @@
 
 <script>
 export default {
+    name: "dropdown",
     data() {
         return {
-            priority: '',
+            priority: "",
             toggled: false,
             priorities: [
                 {title: 'Low', path: 'prio_low'},
@@ -30,14 +31,21 @@ export default {
                 {title: 'Very High', path: 'prio_very_high'}
             ]
         }
+    },props:{
+        newVal: String
     },methods:{
         toggleDropdown(){
             this.toggled ? this.toggled = false : this.toggled = true
         },
         selectItem(elementClicked){
             this.priority = elementClicked.title
-            this.$emit('priority-selected',elementClicked.path)
+            this.$emit('priority-selected',elementClicked)
             this.toggled = false
+        }
+    },
+    watch:{
+        newVal(val){
+            this.priority = val;
         }
     }
 }

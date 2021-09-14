@@ -2,6 +2,7 @@
   <div class="container">
     <AppHeader title="TodoWizard" subline="Getting things done faster"/>
     <InputFields v-on:new-todo="pushToList($event)"/>
+    <tab-bar/>
     <div class="wrapper_Entries">
       <hr>
       <Entry 
@@ -20,17 +21,27 @@
 import AppHeader from './components/appHeader.vue'
 import InputFields from './components/inputFields.vue'
 import Entry from './components/entry.vue'
+import TabBar from './components/tabbar.vue'
+
 
 export default {
   name: 'App',
   components: {
     Entry,
     AppHeader,
-    InputFields
+    InputFields,
+    TabBar
   },
   data() {
     return {
-      todos: []
+      todos: [],
+      priorities: [
+                {title: 'Low', path: 'prio_low'},
+                {title: 'Medium', path: 'prio_medium'},
+                {title: 'High', path: 'prio_high'},
+                {title: 'Very High', path: 'prio_very_high'}
+      ]
+
     }
   },
   methods: {

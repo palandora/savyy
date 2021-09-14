@@ -5,7 +5,7 @@
             <input v-model="title" type="text" placeholder="Title" name="title" id="title">
             <hr>
         </div>
-        <Dropdown v-on:priority-selected="updatePriority($event)" />
+        <Dropdown :newVal="priority" v-on:priority-selected="updatePriority($event)"   />
         <div class="input-wrapper">
             <input v-model="due_date" type="date" placeholder="12.02.2020" name="title" id="title">
         </div>
@@ -25,16 +25,20 @@ export default {
         return {
             title: "",
             priority: "",
+            priority_path: "",
             due_date: "",
             toggleError: false
         }
+    },
+    props: {
+        
     },
     methods:{
        addTodo(){
             const newTodo = {
                 title: this.title,
                 due_date: this.due_date,
-                priority: this.priority,
+                priority: this.priority_path,
                 done: false
             }
             if(!this.inputMissing(newTodo)){
@@ -51,7 +55,8 @@ export default {
             this.priority = ""
         },
         updatePriority(label){
-            this.priority = label;
+            this.priority = label.title
+            this.priority_path = label.path
         },
         inputMissing(obj){
             for(var prop in obj) {
