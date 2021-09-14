@@ -2,11 +2,11 @@
   <div class="container">
     <AppHeader title="TodoWizard" subline="Getting things done faster"/>
     <InputFields v-on:new-todo="pushToList($event)"/>
-    <tab-bar/>
+    <tab-bar v-on:tab-selected="updateEntries($event)"/>
     <div class="wrapper_Entries">
       <hr>
       <Entry 
-        v-for="(todo,index) in todos"
+        v-for="(todo,index) in todos[currentTodos]"
         :key="index" 
         :todo="todo"
         :currentIndex="index"
@@ -34,7 +34,10 @@ export default {
   },
   data() {
     return {
-      todos: [],
+      todos : [
+        [],[],[],[],[],[]
+      ],
+      currentTodos: null,
       priorities: [
                 {title: 'Low', path: 'prio_low'},
                 {title: 'Medium', path: 'prio_medium'},
@@ -46,13 +49,43 @@ export default {
   },
   methods: {
     pushToList(newObject){
-      this.todos.push(newObject)
+      
+      switch(newObject.priority){
+        case 'Low':
+          this.todos[0].push(newObject)
+          break
+        case 'Medium':
+          this.todos[1].push(newObject)
+          break
+        case 'High':
+          this.todos[2].push(newObject)
+          break
+        case 'Very High':
+          this.todos[3].push(newObject)
+          break
+        default:
+          console.log('No category found')
+      }
+      
     },
     removeFromList(atIndex){
       setTimeout(()=>{ 
         this.todos.splice(atIndex, 1);
       }, 1000)
       
+    },
+    updateEntries(clickedTab){
+      this.currentTodos = clickedTab
+    }
+  },
+  provide(){
+    return {
+      priorities: [
+                {title: 'Low', path: 'prio_low'},
+                {title: 'Medium', path: 'prio_medium'},
+                {title: 'High', path: 'prio_high'},
+                {title: 'Very High', path: 'prio_very_high'}
+      ]
     }
   }
   
@@ -91,7 +124,7 @@ export default {
 }
 
 .wrapper_Entries{
-  background: #f8f8f8;
+  /* background: #f8f8f8; */
 }
 
 .wrapper_Entries hr{

@@ -38,7 +38,8 @@ export default {
             const newTodo = {
                 title: this.title,
                 due_date: this.due_date,
-                priority: this.priority_path,
+                priority_path: this.priority_path,
+                priority: this.priority,
                 done: false
             }
             if(!this.inputMissing(newTodo)){

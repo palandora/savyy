@@ -23,13 +23,7 @@ export default {
     data() {
         return {
             priority: "",
-            toggled: false,
-            priorities: [
-                {title: 'Low', path: 'prio_low'},
-                {title: 'Medium', path: 'prio_medium'},
-                {title: 'High', path: 'prio_high'},
-                {title: 'Very High', path: 'prio_very_high'}
-            ]
+            toggled: false
         }
     },props:{
         newVal: String
@@ -47,7 +41,8 @@ export default {
         newVal(val){
             this.priority = val;
         }
-    }
+    },
+    inject: ['priorities']
 }
 </script>
 
